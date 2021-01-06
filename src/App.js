@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { CardList } from "./components/card-list/card-list.component";
+import { SearchBox } from "./components/search-box/search-box.component";
 
 class App extends React.Component {
   constructor() {
@@ -18,6 +19,10 @@ class App extends React.Component {
       .then((users) => this.setState({ robots: users }));
   }
 
+  handleChange = (e) => {
+    this.setState({ searchField: e.target.value });
+  };
+
   render() {
     const { robots, searchField } = this.state;
     const filteredRobots = robots.filter((robot) =>
@@ -26,10 +31,10 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <input
-          type="search"
-          placeholder="search for robots"
-          onChange={(e) => this.setState({ searchField: e.target.value })}
+        <h1>Robots Rolodex</h1>
+        <SearchBox
+          placeholder="search robots"
+          handleChange={this.handleChange}
         />
         <CardList robots={filteredRobots} />
       </div>
